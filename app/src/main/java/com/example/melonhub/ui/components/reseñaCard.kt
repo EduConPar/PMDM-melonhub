@@ -20,26 +20,53 @@ import androidx.compose.ui.unit.dp
 import com.example.melonhub.R
 import com.example.melonhub.model.reseña
 
-
 @Composable
-fun reseñaCard (reseña: reseña, modifier: Modifier){
-    Card (modifier = modifier) {
-        Row (modifier = modifier.padding(8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            Image(modifier = Modifier.size(64.dp), painter = painterResource(R.drawable.image_mockup), contentDescription = "Imagen Receta")
-            Column() {
-                Text(text = reseña.titulo, style = MaterialTheme.typography.titleLarge)
-                Spacer(modifier = Modifier.height(8.dp))
-                Row(horizontalArrangement = Arrangement.spacedBy(4.dp), verticalAlignment = Alignment.CenterVertically) {
-                    for (i in 1..reseña.puntuacion) {
+fun reseñaCard(
+    reseña: reseña,
+    modifier: Modifier = Modifier,
+    onClick: (Long) -> Unit
+) {
+    Card(
+        modifier = modifier,
+        onClick = { onClick(reseña.pelicula?.id ?: reseña.id) }
+    ) {
+        Row(
+            modifier = Modifier.padding(8.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Image(
+                modifier = Modifier.size(64.dp),
+                painter = painterResource(R.drawable.image_mockup),
+                contentDescription = "Imagen Película"
+            )
+            Column {
+                Text(
+                    text = reseña.pelicula?.titulo ?: "Película",
+                    style = MaterialTheme.typography.titleLarge
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(4.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    for (i in 1..reseña.puntuacion.coerceIn(1, 5)) {
                         Image(
-                            modifier = Modifier.size(24.dp),
+                            modifier = Modifier.size(20.dp),
                             painter = painterResource(R.drawable.star_mockup),
                             contentDescription = "Puntuación"
                         )
                     }
-                    Spacer(modifier = Modifier.width(16.dp))
-                    Text(text = "(${reseña.reseñas})", style = MaterialTheme.typography.bodyMedium)
+                    Spacer(modifier = Modifier.width(2.dp))
+                    Text(
+                        text = "(${reseña.puntuacion})",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
                 }
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = reseña.descripcion,
+                    style = MaterialTheme.typography.bodySmall
+                )
             }
         }
     }

@@ -8,9 +8,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import com.example.melonhub.model.reseña
-import com.example.melonhub.ui.components.mainScreen
+import androidx.navigation.compose.rememberNavController
+import com.example.melonhub.navegacion.AppNavHost
+import com.example.melonhub.navegacion.MyAppBottomBar
+import com.example.melonhub.navegacion.MyAppTopBar
 import com.example.melonhub.ui.theme.MelonhubTheme
 
 
@@ -19,18 +20,21 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            val navController = rememberNavController(
+
+            )
             MelonhubTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    mainScreen(
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    topBar = { MyAppTopBar(navController = navController) },
+                    bottomBar = { MyAppBottomBar(navController = navController) }
+                ) { innerPadding ->
+
+                    AppNavHost(
+                        navController = navController,
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(innerPadding)
-                            .padding(8.dp),
-                        reseñas = listOf(
-                            reseña(titulo = "Peli 1", duracion = 120, puntuacion = 5, descripcion = "Muy Buena", reseñas = 2),
-                            reseña(titulo = "Peli 2", duracion = 120, puntuacion = 4, descripcion = "Muy Buena", reseñas =  1),
-                            reseña(titulo = "Peli 3", duracion = 120, puntuacion = 2, descripcion = "Mala", reseñas =  6)
-                        )
                     )
                 }
             }
