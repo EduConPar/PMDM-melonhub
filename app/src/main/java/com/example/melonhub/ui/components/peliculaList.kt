@@ -19,11 +19,11 @@ fun peliculaList(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        items(peliculas) {
+        items(peliculas) { peliculaItem ->
             peliculaCard(
                 modifier = Modifier.fillMaxWidth(),
-                pelicula = peliculas.random(),
-                onClick = { onPeliculaClick(it) }
+                pelicula = peliculaItem,
+                onClick = { onPeliculaClick(peliculaItem.id) }
             )
         }
     }

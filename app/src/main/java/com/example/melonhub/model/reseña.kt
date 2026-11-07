@@ -5,8 +5,12 @@ class reseña(
     val puntuacion: Int,
     val descripcion: String,
     val usuario: String = "Usuario",
-    val pelicula: pelicula? = null
+    val pelicula: pelicula? = null,
+    private val directTitulo: String = "",
+    val directDuracion: Int = 0,
+    val directImagen: String = ""
 ) {
-    val titulo: String get() = pelicula?.titulo ?: ""
-    val duracion: Int get() = pelicula?.duracion ?: 0
+    val titulo: String get() = pelicula?.titulo ?: directTitulo
+    val duracion: Int get() = pelicula?.duracion ?: directDuracion
+    val imagen: String get() = pelicula?.imagen ?: directImagen
 }

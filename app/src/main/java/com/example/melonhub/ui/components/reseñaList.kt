@@ -19,11 +19,11 @@ fun reseñasList(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        items(reseñas) {
+        items(reseñas) { reseñaItem ->
             reseñaCard(
                 modifier = Modifier.fillMaxWidth(),
-                reseña = reseñas.random(),
-                onClick = { onReseñaClick(it) }
+                reseña = reseñaItem,
+                onClick = { onReseñaClick(reseñaItem.id) }
             )
         }
     }
