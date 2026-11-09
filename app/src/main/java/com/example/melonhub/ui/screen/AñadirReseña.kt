@@ -2,7 +2,12 @@ package com.example.melonhub.ui.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -18,6 +23,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -49,7 +55,7 @@ fun AñadirReseña(
     var titulo by remember { mutableStateOf(reseñaInicial?.titulo ?: "") }
     var imagen by remember { mutableStateOf(reseñaInicial?.imagen ?: "") }
     var duracion by remember { mutableStateOf(reseñaInicial?.duracion?.toString() ?: "") }
-    var puntuacion by remember { mutableIntStateOf(reseñaInicial?.puntuacion ?: 0) }
+    var puntuacion by remember { mutableDoubleStateOf(reseñaInicial?.puntuacion ?: 0.0) }
     var descripcion by remember { mutableStateOf(reseñaInicial?.descripcion ?: "") }
     var errorTitulo by remember { mutableStateOf<String?>(null) }
     var errorDuracion by remember { mutableStateOf<String?>(null) }
@@ -110,15 +116,47 @@ fun AñadirReseña(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     for (i in 1..5) {
-                        val isSelected = i <= puntuacion
-                        Image(
+                        val estrellaCompleta = puntuacion >= i
+                        val mediaEstrella = !estrellaCompleta && puntuacion >= i - 0.5
+
+                        Box(
                             modifier = Modifier
                                 .size(36.dp)
-                                .clickable { puntuacion = i },
-                            painter = painterResource(R.drawable.star_mockup),
-                            contentDescription = "Estrella $i",
-                            colorFilter = ColorFilter.tint(if (isSelected) RetroAmarillo else RetroTextoTenue)
-                        )
+                                .pointerInput(i) {
+                                    detectTapGestures { posicion ->
+                                        puntuacion = if (posicion.x < size.width / 2f) {
+                                            i - 0.5
+                                        } else {
+                                            i.toDouble()
+                                        }
+                                    }
+                                },
+                            contentAlignment = Alignment.CenterStart
+                        ) {
+                            Image(
+                                modifier = Modifier.size(36.dp),
+                                painter = painterResource(R.drawable.star_mockup),
+                                contentDescription = if (mediaEstrella) "Media estrella $i" else "Estrella $i",
+                                colorFilter = ColorFilter.tint(
+                                    if (estrellaCompleta || mediaEstrella) RetroAmarillo
+                                    else RetroTextoTenue
+                                )
+                            )
+                            if (mediaEstrella) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(width = 18.dp, height = 36.dp)
+                                        .clipToBounds()
+                                ) {
+                                    Image(
+                                        modifier = Modifier.size(36.dp),
+                                        painter = painterResource(R.drawable.star_mockup),
+                                        contentDescription = null,
+                                        colorFilter = ColorFilter.tint(RetroTextoTenue)
+                                    )
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -179,7 +217,7 @@ fun AñadirReseñaPreview() {
             modifier = Modifier,
             reseñaInicial = reseña(
                 id = 1,
-                puntuacion = 4,
+                puntuacion = 4.0,
                 descripcion = "Una película excelente con una trama fascinante y grandes actuaciones.",
                 pelicula = pelicula(1, "Matrix", 136, null)
             ),

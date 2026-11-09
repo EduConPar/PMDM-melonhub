@@ -245,7 +245,7 @@ private fun BotonAñadir(onClick: () -> Unit) {
 fun HomeScreenPreview() {
     val p1 = pelicula(1, "Peli 1", 148, null)
     val reseñas = listOf(
-        reseña(id = 1, puntuacion = 5, descripcion = "Muy Buena", usuario = "Edu", pelicula = p1)
+        reseña(id = 1, puntuacion = 5.0, descripcion = "Muy Buena", usuario = "Edu", pelicula = p1)
     )
 
     HomeScreen(

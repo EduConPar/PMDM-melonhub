@@ -9,11 +9,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.example.melonhub.R
 import com.example.melonhub.ui.components.win98
+import com.example.melonhub.ui.theme.MelonhubTheme
 import com.example.melonhub.ui.theme.RetroAmarillo
 import com.example.melonhub.ui.theme.RetroNegro
 import com.example.melonhub.ui.theme.RetroPanel
@@ -24,13 +27,6 @@ import com.example.melonhub.ui.theme.RetroTextoTenue
 fun MyAppBottomBar (
     navController: NavHostController
 ){
-    val coloresItem = NavigationBarItemDefaults.colors(
-        selectedIconColor = RetroNegro,
-        selectedTextColor = RetroAmarillo,
-        indicatorColor = RetroAmarillo,
-        unselectedIconColor = RetroTextoTenue,
-        unselectedTextColor = RetroTextoTenue
-    )
 
     NavigationBar(
         modifier = Modifier.win98(grosor = 2.dp, reservarEspacio = false),
@@ -45,7 +41,7 @@ fun MyAppBottomBar (
             onClick = { navController.navigate(Rutas.HOME)},
             icon = { Icon(painter = painterResource(R.drawable.home_icon), contentDescription = "Home") },
             label = { Text("Home") },
-            colors = coloresItem
+
         )
 
         NavigationBarItem(
@@ -53,7 +49,7 @@ fun MyAppBottomBar (
             onClick = { navController.navigate(Rutas.RESEÑAS)},
             icon = { Icon(painter = painterResource(R.drawable.lists_icon), contentDescription = "Reselas")},
             label = { Text("Peliculas")},
-            colors = coloresItem
+
         )
 
         NavigationBarItem(
@@ -61,7 +57,16 @@ fun MyAppBottomBar (
             onClick = { navController.navigate(Rutas.PERFIL)},
             icon = { Icon(painter = painterResource(R.drawable.account_circle_icon), contentDescription = "Perfil")},
             label = { Text("Perfil")},
-            colors = coloresItem
+
         )
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun MyAppBottomBarPreview() {
+    MelonhubTheme {
+        MyAppBottomBar(navController = rememberNavController())
+    }
+}
+

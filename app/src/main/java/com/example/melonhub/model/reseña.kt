@@ -2,7 +2,7 @@ package com.example.melonhub.model
 
 class reseña(
     val id: Long,
-    val puntuacion: Int,
+    val puntuacion: Double,
     val descripcion: String,
     val usuario: String = "Usuario",
     val pelicula: pelicula? = null,

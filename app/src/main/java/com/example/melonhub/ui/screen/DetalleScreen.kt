@@ -151,7 +151,7 @@ fun DetalleScreenPreview() {
             modifier = Modifier,
             reseña = reseña(
                 id = 1,
-                puntuacion = 5,
+                puntuacion = 5.0,
                 descripcion = "La clásica película de acción y ciencia ficción."
             ),
             onEditClick = {}

@@ -19,9 +19,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.melonhub.R
+import com.example.melonhub.model.pelicula
 import com.example.melonhub.model.reseña
+import com.example.melonhub.ui.theme.MelonhubTheme
 import com.example.melonhub.ui.theme.RetroAmarillo
 import com.example.melonhub.ui.theme.RetroPanel
 import com.example.melonhub.ui.theme.RetroPoster
@@ -62,20 +65,7 @@ fun reseñaUsuarioCard(
                     fontWeight = FontWeight.Bold,
                     color = RetroTexto
                 )
-                Spacer(modifier = Modifier.height(4.dp))
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(4.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    for (i in 1..reseña.puntuacion.coerceIn(1, 5)) {
-                        Image(
-                            modifier = Modifier.size(20.dp),
-                            painter = painterResource(R.drawable.star_mockup),
-                            contentDescription = "Puntuación",
-                            colorFilter = ColorFilter.tint(RetroAmarillo)
-                        )
-                    }
-                }
+                puntuacionEstrellas(reseña.puntuacion)
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = reseña.descripcion,
@@ -84,5 +74,26 @@ fun reseñaUsuarioCard(
                 )
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ReseñaUsuarioCardPreview() {
+    MelonhubTheme {
+        reseñaUsuarioCard(
+            reseña = reseña(
+                id = 1L,
+                puntuacion = 5.0,
+                descripcion = "Una obra maestra del cine de ciencia ficción.",
+                pelicula = pelicula(
+                    1L,
+                    "Matrix",
+                    136,
+                    emptyList()
+                )
+            ),
+            onClick = {}
+        )
     }
 }

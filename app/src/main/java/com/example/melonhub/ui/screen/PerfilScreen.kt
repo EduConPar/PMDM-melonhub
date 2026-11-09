@@ -135,7 +135,7 @@ fun PerfilScreen(
 fun PerfilScreenPreview() {
     val p1 = pelicula(1, "Peli 1", 148, null)
     val reseñas = listOf(
-        reseña(id = 1, puntuacion = 5, descripcion = "Excelente película", usuario = "Edu", pelicula = p1)
+        reseña(id = 1, puntuacion = 5.0, descripcion = "Excelente película", usuario = "Edu", pelicula = p1)
     )
 
     MelonhubTheme {

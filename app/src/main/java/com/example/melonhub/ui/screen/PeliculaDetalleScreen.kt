@@ -1,5 +1,6 @@
 package com.example.melonhub.ui.screen
 
+import android.R.attr.fontWeight
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -33,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import com.example.melonhub.R
 import com.example.melonhub.model.pelicula
 import com.example.melonhub.model.reseña
+import com.example.melonhub.ui.components.puntuacionEstrellas
 import com.example.melonhub.ui.components.win98
 import com.example.melonhub.ui.theme.MelonhubTheme
 import com.example.melonhub.ui.theme.RetroAmarillo
@@ -109,9 +111,9 @@ fun PeliculaDetalleScreen(
                         contentDescription = "Puntuación Media",
                         colorFilter = ColorFilter.tint(RetroAmarillo)
                     )
-
                     Text(
-                        text = ": ${String.format("%.1f", pelicula.puntuacionMedia)}",
+
+                        text = ": ${String.format("%.1f", pelicula.puntuacionMedia/2)}",
                         style = MaterialTheme.typography.headlineMedium,
                         color = RetroAmarillo
                     )
@@ -184,17 +186,10 @@ fun ReseñasPeliculasCard (
                     horizontalArrangement = Arrangement.spacedBy(4.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    for (i in 1..reseña.puntuacion.coerceIn(1, 5)) {
-                        Image(
-                            modifier = Modifier.size(20.dp),
-                            painter = painterResource(R.drawable.star_mockup),
-                            contentDescription = "Puntuación",
-                            colorFilter = ColorFilter.tint(RetroAmarillo)
-                        )
-                    }
+                    puntuacionEstrellas(reseña.puntuacion)
                     Spacer(modifier = Modifier.width(2.dp))
                     Text(
-                        text = "(${reseña.puntuacion})",
+                        text = "(${reseña.puntuacion/2})",
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Bold,
                         color = RetroAmarillo
@@ -237,7 +232,7 @@ fun ReseñasPeliculasList (
 @Preview
 @Composable
 fun PeliculaDetalleScreenPreview() {
-    val r1 = reseña(id = 1, puntuacion = 5, descripcion = "Gran película, efectos espectaculares.", usuario = "Edu")
+    val r1 = reseña(id = 1, puntuacion = 5.0, descripcion = "Gran película, efectos espectaculares.", usuario = "Edu")
     val p = pelicula(1, "Peli 1", 148, listOf(r1))
     MelonhubTheme {
         PeliculaDetalleScreen(

@@ -11,6 +11,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,8 +37,8 @@ fun ReseñasScreen(
                 .fillMaxSize()
                 .padding(8.dp)
                 .background(RetroNegro)
-                .win98(hundido = true, grosor = 2.dp)
-                .padding(8.dp)
+                .win98(hundido = true, grosor = 2.dp),
+
         ) {
             Text(
                 text = "TODAS LAS RESEÑAS",
@@ -45,7 +46,7 @@ fun ReseñasScreen(
                 fontWeight = FontWeight.Bold,
                 color = RetroAmarillo
             )
-            Spacer(modifier = Modifier.height(2.dp))
+            Spacer(modifier = Modifier.height(20.dp))
             peliculaList(
                 modifier = Modifier.fillMaxWidth(),
                 peliculas = peliculas,
@@ -58,10 +59,17 @@ fun ReseñasScreen(
 @Preview(showBackground = true)
 @Composable
 fun ReseñasScreenPreview() {
-    val r1 = reseña(1, 5, "Muy Buena", "Edu")
+    val r1 = reseña(1, 5.0, "Muy Buena", "Edu")
     val peliculas = listOf(
-        pelicula(1, "Peli 1", 120, listOf(r1))
+        pelicula(1, "Peli 1", 120, listOf(r1)),
+        pelicula(2, "Peli 2", 120, listOf(r1)),
+        pelicula(3, "Peli 2", 120, listOf(r1)),
+        pelicula(4, "Peli 2", 120, listOf(r1)),
+        pelicula(5, "Peli 2", 120, listOf(r1)),
+        pelicula(6, "Peli 2", 120, listOf(r1))
+
     )
+
 
     MelonhubTheme {
         ReseñasScreen(

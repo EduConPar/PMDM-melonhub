@@ -41,10 +41,10 @@ fun AppNavHost(
     val p2 = pelicula(2, "Peli 2", 169, null)
     val p3 = pelicula(3, "Peli 3", 152, null)
 
-    val r1 = reseña(1, 5, "Excelente película, los efectos visuales son increíbles.", pelicula = p1)
-    val r2 = reseña(2, 4, "Muy entretenida, aunque el final es algo apresurado.", pelicula = p2)
-    val r3 = reseña(3, 3, "Aceptable para pasar el rato.", pelicula = p1)
-    val r4 = reseña(4, 5, "Una obra maestra del cine contemporáneo.", pelicula = p3)
+    val r1 = reseña(1, 5.0, "Excelente película, los efectos visuales son increíbles.", pelicula = p1)
+    val r2 = reseña(2, 4.0, "Muy entretenida, aunque el final es algo apresurado.", pelicula = p2)
+    val r3 = reseña(3, 3.0, "Aceptable para pasar el rato.", pelicula = p1)
+    val r4 = reseña(4, 5.0, "Una obra maestra del cine contemporáneo.", pelicula = p3)
 
     p1.reseñas = listOf(r1, r3)
     p2.reseñas = listOf(r2)
