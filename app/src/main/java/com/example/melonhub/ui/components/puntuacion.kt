@@ -27,9 +27,9 @@ fun puntuacionEstrellas(
     color: Color = RetroAmarillo,
     style: TextStyle = MaterialTheme.typography.labelLarge
 ) {
-    val mediaUnidad = ((puntuacion.coerceIn(0.0, 10.0) + 1) / 2).toInt()
-    val estrellasEnteras = mediaUnidad / 2
-    val mediaEstrella = mediaUnidad % 2 == 1
+    val totalMediasEstrellas = kotlin.math.round(puntuacion.coerceIn(0.0, 10.0)).toInt()
+    val estrellasEnteras = totalMediasEstrellas / 2
+    val mediaEstrella = (totalMediasEstrellas % 2) == 1
     val anchoEstrella = 10.dp
     val altoEstrella = 20.dp
 

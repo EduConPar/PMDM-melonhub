@@ -105,7 +105,7 @@ fun DetalleScreen(
                     )
 
                     Text(
-                        text = ": ${reseña.puntuacion}",
+                        text = ": ${String.format(java.util.Locale.US, "%.1f", reseña.puntuacion / 2.0)}",
                         style = MaterialTheme.typography.headlineMedium,
                         color = RetroAmarillo
                     )
@@ -151,7 +151,7 @@ fun DetalleScreenPreview() {
             modifier = Modifier,
             reseña = reseña(
                 id = 1,
-                puntuacion = 5.0,
+                puntuacion = 10.0,
                 descripcion = "La clásica película de acción y ciencia ficción."
             ),
             onEditClick = {}

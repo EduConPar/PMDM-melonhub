@@ -112,8 +112,7 @@ fun PeliculaDetalleScreen(
                         colorFilter = ColorFilter.tint(RetroAmarillo)
                     )
                     Text(
-
-                        text = ": ${String.format("%.1f", pelicula.puntuacionMedia/2)}",
+                        text = ": ${String.format(java.util.Locale.US, "%.1f", pelicula.puntuacionMedia / 2.0)}",
                         style = MaterialTheme.typography.headlineMedium,
                         color = RetroAmarillo
                     )
@@ -126,6 +125,7 @@ fun PeliculaDetalleScreen(
         Surface(
             modifier = Modifier
                 .fillMaxWidth()
+                .weight(1f)
                 .background(RetroNegro)
                 .win98(hundido = true, grosor = 2.dp),
             color = RetroNegro
@@ -139,7 +139,9 @@ fun PeliculaDetalleScreen(
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 ReseñasPeliculasList(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f),
                     reseñas = pelicula.reseñas,
                     onReseñaClick = onReseñaClick
                 )
@@ -189,7 +191,7 @@ fun ReseñasPeliculasCard (
                     puntuacionEstrellas(reseña.puntuacion)
                     Spacer(modifier = Modifier.width(2.dp))
                     Text(
-                        text = "(${reseña.puntuacion/2})",
+                        text = "(${String.format(java.util.Locale.US, "%.1f", reseña.puntuacion / 2.0)})",
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Bold,
                         color = RetroAmarillo
@@ -232,7 +234,7 @@ fun ReseñasPeliculasList (
 @Preview
 @Composable
 fun PeliculaDetalleScreenPreview() {
-    val r1 = reseña(id = 1, puntuacion = 5.0, descripcion = "Gran película, efectos espectaculares.", usuario = "Edu")
+    val r1 = reseña(id = 1, puntuacion = 10.0, descripcion = "Gran película, efectos espectaculares.", usuario = "Edu")
     val p = pelicula(1, "Peli 1", 148, listOf(r1))
     MelonhubTheme {
         PeliculaDetalleScreen(

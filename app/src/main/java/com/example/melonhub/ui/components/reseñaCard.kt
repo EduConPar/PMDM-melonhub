@@ -96,7 +96,7 @@ fun ReseñaCardPreview() {
             reseñaCard(
                 reseña = reseña(
                     id = 1L,
-                    puntuacion = 5.0,
+                    puntuacion = 10.0,
                     descripcion = "Una obra maestra del cine de ciencia ficción.",
                     pelicula = pelicula(
                         1L,

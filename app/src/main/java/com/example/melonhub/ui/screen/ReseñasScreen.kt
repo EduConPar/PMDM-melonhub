@@ -48,7 +48,9 @@ fun ReseñasScreen(
             )
             Spacer(modifier = Modifier.height(20.dp))
             peliculaList(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
                 peliculas = peliculas,
                 onPeliculaClick = { onPeliculaClick(it) }
             )
@@ -59,7 +61,7 @@ fun ReseñasScreen(
 @Preview(showBackground = true)
 @Composable
 fun ReseñasScreenPreview() {
-    val r1 = reseña(1, 5.0, "Muy Buena", "Edu")
+    val r1 = reseña(1, 10.0, "Muy Buena", "Edu")
     val peliculas = listOf(
         pelicula(1, "Peli 1", 120, listOf(r1)),
         pelicula(2, "Peli 2", 120, listOf(r1)),

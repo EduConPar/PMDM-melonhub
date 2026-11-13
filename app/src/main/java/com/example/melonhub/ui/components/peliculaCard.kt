@@ -80,10 +80,10 @@ fun peliculaCard(
                     .background(RetroPoster)
                     .fillMaxWidth()
             ) {
-                puntuacionEstrellas(puntuacion = pelicula.puntuacionMedia * 2)
+                puntuacionEstrellas(puntuacion = pelicula.puntuacionMedia)
                 Spacer(modifier = Modifier.height(25.dp))
                 Text(
-                    text = "  ·  ${pelicula.puntuacionMedia / 2}",
+                    text = "  ·  ${String.format(java.util.Locale.US, "%.1f", pelicula.puntuacionMedia / 2.0)}",
                     style = MaterialTheme.typography.labelLarge,
                     fontWeight = FontWeight.Bold,
                     color = RetroAmarillo,
@@ -107,8 +107,8 @@ fun PeliculaCardPreview() {
                 "Matrix",
                 136,
                 listOf(
-                    reseña(1L, 5.0, "Excelente película."),
-                    reseña(2L, 5.0, "Muy buena.")
+                    reseña(1L, 10.0, "Excelente película."),
+                    reseña(2L, 8.0, "Muy buena.")
                 )
             ),
             onClick = {}

@@ -1,6 +1,5 @@
 package com.example.melonhub.ui.screen
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,26 +13,21 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.melonhub.R
 import com.example.melonhub.model.pelicula
 import com.example.melonhub.model.reseña
-import com.example.melonhub.ui.components.puntuacionEstrellas
+import com.example.melonhub.ui.components.reseñasList
 import com.example.melonhub.ui.components.win98
 import com.example.melonhub.ui.theme.RetroAmarillo
 import com.example.melonhub.ui.theme.RetroNegro
@@ -80,28 +74,18 @@ private fun ContenidoHome(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        LazyColumn(
+        reseñasList(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
                 .background(RetroNegro)
-                .win98(true, 2.dp)
-
-
-        ) {
-            itemsIndexed(reseñas, key = { _, r -> r.id }) { index, r ->
-                FilaReseña(
-                    reseña = r,
-                    onClick = { onReseñaClick(r.id) }
-                )
-                if (index < reseñas.lastIndex) {
-                    SeparadorPunteado()
-                }
-            }
-            item {
+                .win98(true, 2.dp),
+            reseñas = reseñas,
+            onReseñaClick = onReseñaClick,
+            footerContent = {
                 BotonAñadir(onClick = onAñadirClick)
             }
-        }
+        )
     }
 }
 
@@ -149,73 +133,6 @@ private fun CabeceraPerfil(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun FilaReseña(
-    reseña: reseña,
-    onClick: () -> Unit
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(onClick = onClick)
-            .padding(horizontal = 16.dp, vertical = 10.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Image(
-            modifier = Modifier
-                .width(48.dp)
-                .height(68.dp)
-                .background(RetroPoster)
-                .win98(),
-            painter = painterResource(R.drawable.image_mockup),
-            contentDescription = "Póster ${reseña.titulo}",
-            contentScale = ContentScale.Crop
-        )
-
-        Spacer(modifier = Modifier.width(12.dp))
-
-        Column(verticalArrangement = Arrangement.Center) {
-            Text(
-                text = reseña.pelicula?.titulo ?: "Película",
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
-                color = RetroTexto,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis
-            )
-            Row(
-                modifier = Modifier.padding(start = 8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                puntuacionEstrellas(puntuacion = reseña.puntuacion)
-                Text(
-                    text = "  ·  ${reseña.usuario}",
-                    style = MaterialTheme.typography.labelLarge,
-                    fontWeight = FontWeight.Bold,
-                    color = RetroAmarillo
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun SeparadorPunteado() {
-    Canvas(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(1.dp)
-    ) {
-        drawLine(
-            color = RetroTextoTenue,
-            start = Offset(0f, size.height / 2),
-            end = Offset(size.width, size.height / 2),
-            strokeWidth = 1.dp.toPx(),
-            pathEffect = PathEffect.dashPathEffect(floatArrayOf(2.dp.toPx(), 2.dp.toPx()))
-        )
-    }
-}
-
-@Composable
 private fun BotonAñadir(onClick: () -> Unit) {
     Row(
         modifier = Modifier
@@ -245,7 +162,8 @@ private fun BotonAñadir(onClick: () -> Unit) {
 fun HomeScreenPreview() {
     val p1 = pelicula(1, "Peli 1", 148, null)
     val reseñas = listOf(
-        reseña(id = 1, puntuacion = 5.0, descripcion = "Muy Buena", usuario = "Edu", pelicula = p1)
+        reseña(id = 1, puntuacion = 10.0, descripcion = "Muy Buena", usuario = "Edu", pelicula = p1),
+        reseña(id = 2, puntuacion = 9.0, descripcion = "Muy Buena", usuario = "Edu", pelicula = p1)
     )
 
     HomeScreen(

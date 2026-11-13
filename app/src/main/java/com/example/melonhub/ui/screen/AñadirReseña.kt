@@ -116,8 +116,8 @@ fun AñadirReseña(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     for (i in 1..5) {
-                        val estrellaCompleta = puntuacion >= i
-                        val mediaEstrella = !estrellaCompleta && puntuacion >= i - 0.5
+                        val estrellaCompleta = puntuacion >= i * 2.0
+                        val mediaEstrella = !estrellaCompleta && puntuacion >= (i * 2.0 - 1.0)
 
                         Box(
                             modifier = Modifier
@@ -125,9 +125,9 @@ fun AñadirReseña(
                                 .pointerInput(i) {
                                     detectTapGestures { posicion ->
                                         puntuacion = if (posicion.x < size.width / 2f) {
-                                            i - 0.5
+                                            (i * 2 - 1).toDouble()
                                         } else {
-                                            i.toDouble()
+                                            (i * 2).toDouble()
                                         }
                                     }
                                 },

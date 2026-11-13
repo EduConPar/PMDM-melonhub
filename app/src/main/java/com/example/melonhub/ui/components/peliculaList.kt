@@ -56,19 +56,19 @@ fun PeliculaListPreview() {
                     1L,
                     "Matrix",
                     136,
-                    listOf(reseña(1L, 5.0, "Excelente película."))
+                    listOf(reseña(1L, 10.0, "Excelente película."))
                 ),
                 pelicula(
                     2L,
                     "El viaje de Chihiro",
                     125,
-                    listOf(reseña(2L, 4.5, "Una película preciosa."))
+                    listOf(reseña(2L, 9.0, "Una película preciosa."))
                 ),
                 pelicula(
                     3L,
                     "Interestelar",
                     169,
-                    listOf(reseña(3L, 5.0, "Impresionante."))
+                    listOf(reseña(3L, 10.0, "Impresionante."))
                 )
             ),
             onPeliculaClick = {}
